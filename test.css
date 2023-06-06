@@ -1,0 +1,31 @@
+#enroll {
+    color : red;
+}
+
+.center {
+    position: absolute;
+    left :50%;
+    top : 50%;
+    transform : translate(-50%,-50%);
+}
+
+#notice {
+    color : purple;
+}
+
+#page_num{
+    font-size: 14px;
+    margin-left: 260px;
+    margin-top: 30px;
+}
+
+#page_num ul li {
+    float: left;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.fo_re {
+    font-weight: bold;
+    color:red;
+}
