@@ -33,6 +33,7 @@ session_start();
                         </tr>
                     </tbody>
                     <div class="btnSEt">
+                        
                         <button style="background-color:pink" type="submit"><div>작성</div></button>
                     </div>
                     <input type="file" name="board_file" />

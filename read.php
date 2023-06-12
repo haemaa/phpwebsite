@@ -71,11 +71,22 @@ $hit = $hit + 1;
 <div><?php echo $board['date']; ?></div>
 <div>조회수 : <?php echo $board['hit']; ?></div>
 <br>
-파일 : <a href="./upload/<?php echo $board['file'];?>" download><?php echo $board['file']; ?></a>
+<?php 
+$filename = explode('_', $board['file'])[1]; //타임스탬프를 제거 후 파일명만 분리
+$download_url = 'download_proc.php?filename='.$board['file'];
+echo '<p>파일 : <a href="'.$download_url.'">'.$filename.'</a></p>';
+?>
 <div>내용 : <?php echo $board['content']; ?></div>
 <br>
 <a href="./modify.php?number=<?php echo $board['number'];?>"><button>수정</button></a>
 <a href="./delete_proc.php?number=<?php echo $board['number'];?>" onclick="return confirm('정말로 삭제하시겠습니까? 삭제 후에는 되돌릴 수 없습니다.')"><button>삭제</button></a>
 <a href="./noticeboard.php"><button>목록</button></a>
+<p>
+<?php 
+  if(isset($_SESSION['write_error'])){
+    echo $_SESSION['write_error'];
+    unset($_SESSION['write_error']);
+  }
+?>
 </body>
 </html>

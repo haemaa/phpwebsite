@@ -9,11 +9,11 @@
 
 <head>
     <meta charset="utf-8"/></head> 
-    <title>Normaltic login hw</title>
+    <title>login</title>
     <link rel='stylesheet' type='text/css' href='test.css'/>
 </head>
 <body>
-    <H1>2주차 로그인 기능 구현 과제</h1>
+    <H1>로그인 페이지</h1>
         <p>아이디 비밀번호 입력하세요</p>
     <form action='login_proc.php' method='POST'>
         <p>ID : 
