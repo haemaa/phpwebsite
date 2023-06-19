@@ -7,8 +7,11 @@ $con = mysqli_connect('localhost','root','1234','test');
 //get으로 카테고리와 검색값을 받음
 $category = $_GET['category'];
 $search_title= $_GET['search'];
-$query = "SELECT * FROM board WHERE $category like '%$search_title%'";
-$result = $con->query($query);
+
+//get으로 날짜 지정값을 받음
+$pre_date = $_GET['pre_date'];
+$end_date = $_GET['end_date'];
+
 
 if($category=='title'){
   $catname = "제목";
@@ -17,19 +20,32 @@ if($category=='title'){
 } else if ($category=="content"){
   $catname = '내용';
 }
+
+
+if($pre_date&&$end_date){
+  $query = "SELECT * FROM board WHERE $category LIKE '%$search_title%' AND date BETWEEN '$pre_date' and '$end_date' ORDER BY number DESC" ;
+} else {
+  $query = "SELECT * FROM board WHERE $category like '%$search_title%'";
+}
+
+$result = $con->query($query);
+
 ?>
 
 <style>
 #page_num{
     font-size: 14px;
-    margin-left: 260px;
-    margin-top: 30px;
+    margin:0 auto;
+    text-align:center;
+}
+
+#page_num ul{
+  text-align:center;
 }
 
 #page_num ul li {
-    float: left;
     margin-left: 10px;
-    text-align: center;
+    display:inline-block;
 }
 
 .fo_re {
@@ -50,7 +66,12 @@ if($category=='title'){
 }
 
 .container{
-  right:75px;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+.date {
+  text-align: center;
 }
 </style>
 
@@ -102,7 +123,12 @@ if($category=='title'){
 </nav>
 <br>
     <h1>자유게시판 검색결과</h1>
-    <div><?php echo $catname." 내에서 ".$_GET['search']." 검색결과 표시" ?></div>
+   
+    <th><?php echo $catname." 내에서 ".$_GET['search']." 검색결과 표시" ?></th>
+    <th>
+    <a href="./write.php"><button itype="button" class="btn btn-outline-success space">글쓰기</button></a>
+    </th>
+
     <table class="table">
         <thead>
             <tr>
@@ -136,15 +162,20 @@ if($category=='title'){
         $total_block = ceil($total_page/$block_ct); //블럭 총 개수
         $start_num = ($page-1)*$list; //시작번호 (page -1)에서 $list 를 곱한다.
 
-        $query3 = "SELECT * FROM board WHERE $category like '%$search_title%' order by number desc limit $start_num,$list";
+        if($pre_date&&$end_date){
+          $query3 = "SELECT * FROM board WHERE $category LIKE '%$search_title%' AND date BETWEEN '$pre_date' AND '$end_date' order by number DESC limit $start_num,$list";
+        } else {
+          $query3 = "SELECT * FROM board WHERE $category like '%$search_title%' order by number desc limit $start_num,$list";
+        }
+
         $result3 = $con ->query($query3);
           while($s_board = $result3->fetch_array()){
             $title = $s_board['title'];
             $number = $s_board['number'];
             $name = $s_board['name'];
             $date = $s_board['date'];
-            $thumbup = $s_board['thumbup'];
             $hit = $s_board['hit'];
+            $thumbup = $s_board['thumbup'];
             if(strlen($title)>30){
                 $title = str_replace($s_board['title'],mb_substr($s_board['title'],0,30,"utf-8")."...",$s_board['title']);
             }
@@ -177,31 +208,31 @@ if($category=='title'){
           if($page <= 1){    
           } else {
             $pre = $page -1;
-            echo "<li><a href='?category=$category&search=$search_title&page=$pre'>이전</a></li>"; //이전글자에 pre변수를 링크한다. 이러면 이전버튼을 누를때마다 현재 페이지에서 -1하게 된다.
+            echo "<li><a href='?category=$category&search=$search_title&page=$pre&pre_date=$pre_date&end_date=$end_date'>이전</a></li>"; //이전글자에 pre변수를 링크한다. 이러면 이전버튼을 누를때마다 현재 페이지에서 -1하게 된다.
           }
           for($i=$block_start; $i<=$block_end; $i++){ 
             //for문 반복문을 사용하여, 초기값을 블록의 시작번호를 조건으로 블록시작번호가 마지박블록보다 작거나 같을 때까지 $i를 반복시킨다
             if($page == $i){ //만약 page가 $i와 같다면 
               echo "<li class='fo_re'>[$i]</li>"; //현재 페이지에 해당하는 번호에 굵은 빨간색을 적용한다
             }else{
-              echo "<li><a href='?category=$category&search=$search_title&page=$i'>[$i]</a></li>"; //아니라면 $i
+              echo "<li><a href='?category=$category&search=$search_title&page=$i&pre_date=$pre_date&end_date=$end_date'>[$i]</a></li>"; //아니라면 $i
             }
           }
           if($block_num >= $total_block){ //만약 현재 블록이 블록 총개수보다 크거나 같다면 빈 값
           }else{
             $next = $page + 1; //next변수에 page + 1을 해준다.
-            echo "<li><a href='?category=$category&search=$search_title&page=$next'>다음</a></li>"; //다음글자에 next변수를 링크한다. 현재 4페이지에 있다면 +1하여 5페이지로 이동하게 된다.
+            echo "<li><a href='?category=$category&search=$search_title&page=$next&pre_date=$pre_date&end_date=$end_date'>다음</a></li>"; //다음글자에 next변수를 링크한다. 현재 4페이지에 있다면 +1하여 5페이지로 이동하게 된다.
           }
           if($page >= $total_page){ //만약 page가 페이지수보다 크거나 같다면
             echo "<li class='fo_re'>마지막</li>"; //마지막 글자에 긁은 빨간색을 적용한다.
           }else{
-            echo "<li><a href='?category=$category&search=$search_title&page=$total_page'>마지막</a></li>"; //아니라면 마지막글자에 total_page를 링크한다.
+            echo "<li><a href='?category=$category&search=$search_title&page=$total_page&pre_date=$pre_date&end_date=$end_date'>마지막</a></li>"; //아니라면 마지막글자에 total_page를 링크한다.
           }
           ?>
         </ul>
         <br><Br>
         <div class="input-group mb-3 container">
-          <form action="search_result.php" method="GET">
+          <form action="search_result.php" method="GET" style="margin: auto;">
           <select name="category">
              <option value="title">제목</option>
              <option value="name">글쓴이</option>
@@ -209,10 +240,10 @@ if($category=='title'){
             </select>
   <input type="text" name="search" placeholder="검색할 게시글 입력" required="required">
   <button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
-        </form>
-    </div>
-   <div>
-    <a href="./write.php"><button itype="button" class="btn btn-outline-success space">글쓰기</button></a>
+  <br>
+  <div>시작일: <input type="date" name="pre_date" id="pre_date" data-placeholder="시작 날짜"/>
+   종료일: <input type="date" name="end_date" id="end_date" /></div>        
+  </form>
     </div>
 </body>
 </html>

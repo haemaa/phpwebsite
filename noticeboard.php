@@ -11,14 +11,17 @@ $result = $con->query($query);
 <style>
 #page_num{
     font-size: 14px;
-    margin-left: 260px;
-    margin-top: 30px;
+    margin:0 auto;
+    text-align:center;
+}
+
+#page_num ul{
+  text-align:center;
 }
 
 #page_num ul li {
-    float: left;
     margin-left: 10px;
-    text-align: center;
+    display:inline-block;
 }
 
 .fo_re {
@@ -39,8 +42,15 @@ $result = $con->query($query);
 }
 
 .container{
-  right:75px;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
 }
+
+.date {
+  text-align: center;
+}
+
 </style>
 
 <html lang="en">
@@ -91,7 +101,14 @@ $result = $con->query($query);
 </nav>
 <br>
     <h1>자유게시판</h1>
-    <div>원하는 내용을 자유롭게 작성해주세요!</div>
+<!--날짜 지정 검색 구현/3가지 태그를 나열하기 위해 table 태그 사용-->
+   
+  <tr>
+<th>원하는 내용을 자유롭게 작성해주세요!</th>
+<th>
+    <a href="./write.php"><button itype="button" class="btn btn-outline-success space">글쓰기</button></a>
+</th>
+</tr>
     <table class="table">
         <thead>
             <tr>
@@ -99,10 +116,11 @@ $result = $con->query($query);
                 <th width="300">제목</th>
                 <th width="130">글쓴이</th>
                 <th width="120">작성일</th>
-                <th width="50">조회수</th>
-                <th width="50">추천수</th>
+                <th width="70">조회수</th>
+                <th width="70">추천수</th>
             </tr>
         </thead>      
+        <!-- 페이징 -->
         <?php
         if(isset($_GET['page'])){
           $page = $_GET['page'];
@@ -128,12 +146,12 @@ $result = $con->query($query);
         $query2 = "SELECT * FROM board order by number desc limit $start_num,$list";
         $result2 = $con ->query($query2);
           while($board = $result2->fetch_array()){
-            $title = $board['title'];
-            $number = $board['number'];
-            $name = $board['name'];
-            $date = $board['date'];
-            $thumbup = $board['thumbup'];
-            $hit = $board['hit'];
+            $title = $board['title']; //게시글 제목
+            $number = $board['number']; //게시글 번호
+            $name = $board['name']; //작성자
+            $date = $board['date']; //작성 날짜
+            $thumbup = $board['thumbup']; //좋아요 수
+            $hit = $board['hit']; //조회수
             if(strlen($title)>30){
                 $title = str_replace($board['title'],mb_substr($board['title'],0,30,"utf-8")."...",$board['title']);
             }
@@ -146,8 +164,8 @@ $result = $con->query($query);
                 <td width="300"><a href="./read.php?number=<?php echo $board['number'];?>"><?php echo $title;?></td>
                 <td width="130"><?php echo $name; ?></td>
                 <td width="120"><?php echo $date; ?></td>
-                <td width="50"><?php echo $thumbup; ?></td>
                 <td width="50"><?php echo $hit; ?></td>
+                <td width="50"><?php echo $thumbup; ?></td>
             </tr>    
         </tbody>
         <?php
@@ -190,7 +208,8 @@ $result = $con->query($query);
         </ul>
         <br><Br>
         <div class="input-group mb-3 container">
-          <form action="search_result.php" method="GET">
+          <!-- 검색 항목 form 태그 -->
+          <form action="search_result.php" method="GET" style="margin: auto;">
             <select name="category">
              <option value="title">제목</option>
              <option value="name">글쓴이</option>
@@ -198,10 +217,12 @@ $result = $con->query($query);
             </select>
   <input type="text" name="search" placeholder="검색할 게시글 입력" required="required">
   <button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
-        </form>
-    </div>
-   <div>
-    <a href="./write.php"><button itype="button" class="btn btn-outline-success space">글쓰기</button></a>
+  <div class="date">
+    <br>    
+    <div>시작일: <input type="date" name="pre_date" id="pre_date" data-placeholder="시작 날짜"/>
+   종료일: <input type="date" name="end_date" id="end_date" /></div>
+  </form>  
+  </div>
     </div>
 </body>
 </html>

@@ -6,12 +6,12 @@ session_start();
 $name = $_SESSION['id'];
 $bPassword = $_POST['bPassword'];
 $bTitle = $_POST['bTitle'];
-$date = date('Y-m-d H:i:s');
+$date = date('Y-m-d');
 $bContent = $_POST['bContent'];
 
+
 //파일 관련 변수
-// if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['board_file'])){
-$tmpfile = $_FILES['board_file']['tmp_name'];
+if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['board_file'])){
 // $filesize=$_FILES['board_file']['size'];
 // $file_error=$_FILES['board_file']['error'];
 $origin_filename = $_FILES['board_file']['name'];
@@ -32,13 +32,18 @@ $new_filename = $timestamp.'_'.$filename;
         } else {
             $_SESSION['write_error'] = '파일 업로드 Fail ㅜㅜ';
         } 
+    }
     
 
  
 //데이터베이스에 저장할 쿼리 엶
 $con = mysqli_connect('localhost','root','1234','test');
-$query = "INSERT INTO board (title, content, date, name,password,file) VALUES ('$bTitle','$bContent','$date','$name','$bPassword','$new_filename')";
 
+if(!empty($origin_filename)){
+$query = "INSERT INTO board (title, content, date, name,password,file,thumbup) VALUES ('$bTitle','$bContent','$date','$name','$bPassword','$new_filename',0)";
+} else {
+    $query = "INSERT INTO board (title, content, date, name,password,file,thumbup) VALUES ('$bTitle','$bContent','$date','$name','$bPassword',NULL,0)";
+}
 if ($con->query($query)){
     echo "<h1>글쓰기 완료</h1>";
     echo "<p>작성한 글이 성공적으로 등록되었습니다.</p>";
