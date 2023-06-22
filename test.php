@@ -29,7 +29,7 @@
         <div class="row mb-3">
         <label for="inputPassword3" class="col-sm-2 col-form-label">PW</label>
     <div class="col-sm-10">
-        <input type='text' class="form-control" name='pw' placeholder='여기에 비밀번호를 입력하세요'/></p>
+        <input type='password' class="form-control" name='pw' placeholder='여기에 비밀번호를 입력하세요'/></p>
     </div>
 </div>
         <br><Br><input type='submit' style="float:right;" value='로그인' class="btn btn-secondary"/>

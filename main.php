@@ -57,7 +57,7 @@ require('nav.html');
   <div class="card-body">
     <h5 class="card-title">문의 게시판</h5>
     <p class="card-text">이용하시다 문의사항이 있다면, 여기에 남겨주세요</p>
-    <a href="./noticeboard.php" class="btn btn-outline-secondary">게시판 이동</a>
+    <a href="./qna_board.php" class="btn btn-outline-secondary">게시판 이동</a>
   </div>
 </div>
     </div>

@@ -24,12 +24,10 @@ $myp = $myp_result->fetch_array();
         //상단 바 생성
         require("./nav.html");
     ?>
-
-<br>
     <h1>마이 페이지 수정</h1>
     <hr>
     <br>
-    <table>
+    <table class="table table-striped table-hover">
     <form action="myp_update_proc.php" method="post">
         <div>
         <tr>
