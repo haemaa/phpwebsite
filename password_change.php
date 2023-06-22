@@ -34,6 +34,7 @@ require('nav.html');
 <?php
 //에러 표시해줌
 echo $_SESSION['msg'];
+unset($_SESSION['msg']);
 ?>
 </body>
 </html>
