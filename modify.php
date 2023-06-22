@@ -24,40 +24,36 @@ $board = $result->fetch_array();
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <article class="article">
-        <h3>게시판 글수정</h3>
+    <?php
+    require('nav.html');
+    ?>
+        <h1>게시판 글수정</h1>
+        <hr>
         <div id="boardwrite">
+        <h6>자유게시판 글수정</h6>
+        <br>
             <form action="./modify_proc.php?number=<?php echo $bno; ?>" method="POST">
-                <table id="boardwrite">
-                    <caption class="readHIde">자유게시판 글수정</caption>
-                    <tbody>
-                        <tr>
-                            <th scope="row"><label for="bPassword">비밀번호</label></th>
+                <table>
+                    <thead>
+                    <tr>
+                            <th>비밀번호</th>
                             <td class="password"><input type="text" name="bPassword" id="bPassword"></td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="bTitle">제목</label></th>
-                            <td class="title"><textarea type="text" name="bTitle" id="bTitle" maxlength="100">
-                                <?php echo $board['title']; ?>
-                            </textarea>
+                            <th>제목</th>
+                            <td class="title"><textarea type="text" name="bTitle" id="bTitle" maxlength="100"><?php echo $board['title']; ?></textarea>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="bContent">내용</label></th>
-                            <td class="content"><textarea name="bContent" id="bContent" maxlength="100">
-                                <?php echo $board['content']; ?>
-                            </textarea></td>
+                            <th>내용</th>
+                            <td class="content"><textarea name="bContent" id="bContent" maxlength="100"><?php echo $board['content']; ?></textarea></td>
                         </tr>
-                    </tbody>
-                    
-                    <div class="btnSEt">
-                        <button type="submit" class="btnSubmit btn">수정 완료</button></div>
-                        </div>    
-                    </form>
-                        <br> 
-                        <br>
-                        <Br>    
-                        <a href="./noticeboard.php" class="btnLIst btn">목록</a>
-        </article>
+                        </thead>
+            </table>
+            <br>
+            <div class="btnSEt">
+                        <button type="submit" class="btnSubmit btn">수정 완료</button>
+                        <a href="./noticeboard.php" class="btnLIst btn">목록</a></div>
+                    </form>   
 </body>
 </html>

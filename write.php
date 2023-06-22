@@ -9,11 +9,16 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판 글쓰기</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <?php
+require('./nav.html');
+?>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <article class="article">
-        <h3>게시판 글쓰기</h3>
+        <BR>
+        <h1>게시판 글쓰기</h1>
+        <HR>
         <div id="boardwrite">
             <form action="./write_update.php" method="POST" enctype="multipart/form-data">
                 <table id="boardwrite">
@@ -21,7 +26,7 @@ session_start();
                     <tbody>
                         <tr>
                             <th scope="row"><label for="bTitle">제목</label></th>
-                            <td class="title"><input type="text" name="bTitle" id="bTItle"></td>
+                            <td class="title"><input type="text" name="bTitle" id="bTitle"></td>
                         </tr>
                         <tr>
                             <th scope="row"><label for="bContent">내용</label></th>

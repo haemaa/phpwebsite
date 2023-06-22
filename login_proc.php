@@ -7,6 +7,7 @@ $con = mysqli_connect('localhost','root','1234','test');
 $input_id = $_POST['id'];
 $input_pw = $_POST['pw'];
 
+//식별 & 인증 분리 로그인 CASE
 //아이디가 있는지 없는지 검사
 $query = "SELECT username,password FROM user WHERE username='$input_id'";
 $result = $con -> query($query); //쿼리문을 데이터베이스에 적용시켜라

@@ -9,18 +9,19 @@ $bTitle = $_POST['bTitle'];
 $date = date('Y-m-d');
 $bContent = $_POST['bContent'];
 
-
+echo '1';
 //파일 관련 변수
 if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['board_file'])){
+    echo '3';
 // $filesize=$_FILES['board_file']['size'];
 // $file_error=$_FILES['board_file']['error'];
+$tmpfile = $_FILES['board_file']['tmp_name'];
 $origin_filename = $_FILES['board_file']['name'];
 $allowed_mime_types =['image/jpeg','image/png','image/gif','application/zip','application/x-hwp','application/msword','application/pdf']; //mime허락된 형식
 $filename = iconv("UTF-8","EUC-KR",$_FILES['board_file']['name']);
 
 $timestamp = time();
 $new_filename = $timestamp.'_'.$filename;
-
     $file_mime_type = mime_content_type($tmpfile);
 
     // if(in_array($file_mime_type, $allowed_mime_types)){
@@ -32,10 +33,10 @@ $new_filename = $timestamp.'_'.$filename;
         } else {
             $_SESSION['write_error'] = '파일 업로드 Fail ㅜㅜ';
         } 
-    }
+    };
     
 
- 
+ echo '2';
 //데이터베이스에 저장할 쿼리 엶
 $con = mysqli_connect('localhost','root','1234','test');
 

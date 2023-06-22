@@ -142,7 +142,6 @@ require('./nav.html');
         $list = 5; //한 페이지에 보여줄 개수
         $block_ct = 5; //블록당 보여줄 페이지 개수
         $block_num = ceil($page/$block_ct); //현재 페이지 블록 구하기
-        echo $page;
         $block_start = (($block_num-1)* $block_ct)+1; //블록의 시작번호
         $block_end= $block_start + $block_ct -1; //블록 마지막 번호
 

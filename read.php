@@ -52,9 +52,9 @@ $filename = explode('_', $board['file'])[1]; //타임스탬프를 제거 후 파
 $download_url = 'download_proc.php?filename='.$board['file'];
 echo '<p>파일 : <a href="'.$download_url.'">'.$filename.'</a></p>';
 ?>
-<hr>
-<div>내용 : <?php echo $board['content']; ?></div>
-<hr>
+
+<textarea style="width:100%; height:15rem;" readonly><?php echo $board['content']; ?></textarea>
+  <br>
 <!-- 좋아요 버튼 -->
 <?php
  //like_manager DB 검증
@@ -84,12 +84,16 @@ echo' 좋아요 수 : '.$board['thumbup'];
 ?>
 
 <br><Br>
-<a href="./modify.php?number=<?php echo $board['number'];?>"><button>수정</button></a>
-<a href="./delete_proc.php?number=<?php echo $board['number'];?>" onclick="return confirm('정말로 삭제하시겠습니까? 삭제 후에는 되돌릴 수 없습니다.')"><button>삭제</button></a>
-<a href="./noticeboard.php"><button>목록</button></a>
+<?php 
+if ($_SESSION['id'] == $board['name']){
+?>
+<a href="./modify.php?number=<?php echo $board['number'];?>"><button class="btn btn-secondary">수정</button></a>
+<a href="./delete_proc.php?number=<?php echo $board['number'];?>" onclick="return confirm('정말로 삭제하시겠습니까? 삭제 후에는 되돌릴 수 없습니다.')"><button class="btn btn-secondary">삭제</button></a>
+<?php } ?>
+<a href="./noticeboard.php"><button class="btn btn-secondary">목록</button></a>
 <p>
 
-<?php 
+<?php
   if(isset($_SESSION['write_error'])){
     echo $_SESSION['write_error'];
     unset($_SESSION['write_error']);
