@@ -18,6 +18,52 @@ if(isset($ord_ca)){
 
 
 ?>
+
+<style>
+#page_num{
+    font-size: 14px;
+    margin:0 auto;
+    text-align:center;
+}
+
+#page_num ul{
+  text-align:center;
+}
+
+#page_num ul li {
+    margin-left: 10px;
+    display:inline-block;
+}
+
+.fo_re {
+    font-weight: bold;
+    color:red;
+}
+
+.space {
+  float: right;
+}
+
+.table thead th{
+  text-align: center;
+}
+
+.table tbody tr{
+  text-align: center;
+}
+
+.container{
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.date {
+  text-align: center;
+}
+
+</style>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,7 +86,7 @@ require('./nav.html');
   <tr>
 <th style="width:40%;">문의사항이 있으시다면 여기에 남겨주세요!
   <p>
-    <form action="<?php echo $current_url;?>" method="GET" id="ord_ca" name="frm">
+    <!-- <form action="" method="GET" id="ord_ca" name="frm">
     <select name="ord_ca">
     <option value="none">정렬 기준</option>
     <option value="date">날짜 순</option>
@@ -48,7 +94,7 @@ require('./nav.html');
     <option value="thumbup">추천 수</option> 
     </select>
     <input type="submit" value="정렬"/>
-</form>
+</form> -->
 </th>
 <th>
     <a href="./qna_write.php"><button type="button" style="float:right;"class="btn btn-outline-success">글쓰기</button></a>
@@ -61,8 +107,6 @@ require('./nav.html');
                 <th width="300">제목</th>
                 <th width="130">글쓴이</th>
                 <th width="120">작성일</th>
-                <th width="70">조회수</th>
-                <th width="70">추천수</th>
             </tr>
         </thead>      
         <!-- 페이징 -->
@@ -96,10 +140,14 @@ require('./nav.html');
           while($board = $result2->fetch_array()){
             $title = $board['title']; //게시글 제목
             $number = $board['number']; //게시글 번호
+            if(isset($board['name'])){
             $name = $board['name']; //작성자
+            } else {
+             $name = "익명"; 
+            }
             $date = $board['date']; //작성 날짜
-            $thumbup = $board['thumbup']; //좋아요 수
-            $hit = $board['hit']; //조회수
+            // $thumbup = $board['thumbup']; //좋아요 수
+            // $hit = $board['hit']; //조회수
             if(strlen($title)>30){
                 $title = str_replace($board['title'],mb_substr($board['title'],0,30,"utf-8")."...",$board['title']);
             }
@@ -112,8 +160,6 @@ require('./nav.html');
                 <td width="300"><a href="./qna_read.php?number=<?php echo $board['number'];?>"><?php echo $title;?></td>
                 <td width="130"><?php echo $name; ?></td>
                 <td width="120"><?php echo $date; ?></td>
-                <td width="50"><?php echo $hit; ?></td>
-                <td width="50"><?php echo $thumbup; ?></td>
             </tr>    
         </tbody>
         <?php
@@ -157,7 +203,7 @@ require('./nav.html');
         <br><Br>
         <div class="input-group mb-3 container">
           <!-- 검색 항목 form 태그 -->
-          <form action="search_result.php" method="GET" style="margin: auto;">
+          <form action="qna_search.php" method="GET" style="margin: auto;">
             <select name="category">
              <option value="title">제목</option>
              <option value="name">글쓴이</option>
