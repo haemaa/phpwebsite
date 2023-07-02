@@ -162,7 +162,7 @@ require('./nav.html');
                 <td width="70"><?php echo $number; ?></td>
                 <td width="300">
                   <?php 
-                  $locking = "<img src='./lockpost.png' alt='lock' title='lock' width='20' height='20'";
+                  $locking = "<img src='./image/lockpost.png' alt='lock' title='lock' width='20' height='20'";
                   if($lockpost == '0'){ ?>
                   <a href="./qna_read.php?number=<?php echo $board['number'];?>"><?php echo $title;?></td>
                   <?php } else { ?>
