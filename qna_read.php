@@ -10,6 +10,9 @@ $login_id = "익명";
 //클릭할 때 number GET으로 가져옴
 $bno = $_GET['number'];
 
+//전화번호 인증한거 변수로 저장
+$pw_phone = $_POST['phone'];
+
 //게시판 DB 연결
 $con = mysqli_connect('localhost','root','1234','test');
 
@@ -26,6 +29,14 @@ $board = $result->fetch_array();
 // $hit = $hit + 1;
 // $hit_query = "UPDATE board SET hit = '".$hit."' WHERE number ='".$bno."'";
 // $hit_result = $con->query($hit_query);
+if($board['lock_post']=='1'){
+  if($board['phone']==$pw_phone){
+    echo "<script>alert('전화번호 인증에 성공했습니다!')</script>";
+  } else {
+    $_SESSION['msg'] = "전화번호 인증에 실패했습니다";
+    header("Location: ./qna_board.php");
+  }
+}
 
 ?>
 <!DOCTYPE html>
