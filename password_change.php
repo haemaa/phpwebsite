@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <?php
 session_start();
+if(!isset($_SESSION['id'])){
+  header('Location: ./test.php');
+}
 //세션 아이디 $login_id에 저장
 $login_id =$_SESSION['id'];
 ?>
