@@ -13,39 +13,61 @@ session_start();
     <?php
 require('./nav.html');
 ?>
+<style>
+#boardwrite{
+    margin:0 auto;
+}
+
+</style>
+
+
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <article class="article">
         <BR>
         <h1>문의 게시판 글쓰기</h1>
         <HR>
-        <div id="boardwrite">
             <form action="./qna_write_proc.php" method="POST" enctype="multipart/form-data">
                 <table id="boardwrite">
-                    <caption class="readHIde">문의게시판 글쓰기</caption>
-                    <tbody>
+                    <thead>
                         <tr>
-                            <th scope="row"><label for="bTitle">제목</label></th>
-                            <td class="title"><input type="text" name="bTitle" id="bTitle"></td>
+                            <th>제목</th>
+                            <td class="title"><input style="width:700px;" type="text" name="bTitle" id="bTitle"></td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="bContent">내용</label></th>
-                            <td class="content"><textarea name="bContent" id="bContent"></textarea></td>
+                            <th>내용</th>
+                            <td class="content"><textarea style="width:700px;height:400px;" name="bContent" id="bContent"></textarea></td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="bPassword">비밀번호</label></th>
-                            <td class="password"><input type="text" name="bPassword" id="bPassword"></td>
+                            <th>전화번호</th>
+                            <td class="phone"><input placeholder="비밀글로 하시려면 작성해주세요" style="width:700px;" type="text" name="bPhone" id="bPhone"></td>
                         </tr>
-                    </tbody>
-                    <div class="btnSEt">
-                        
-                        <button style="background-color:pink" type="submit"><div>작성</div></button>
-                    </div>
-                    <input type="file" name="board_file" />
+                        <tr>
+                            <th></th>
+                            <td>
+                                <!-- 게시글 잠금 기능 -->
+                        <input type="checkbox" value="1" name="lockpost" id="lockpost"/> 비밀글 설정
+                        </td>
+                        </tr>    
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input type="file" name="board_file" />
+                            <a href="qna_board.php" class="btnLIst btn"><div style="margin-left:300px;border:2px solid grey;">목록</div></a> 
+                            <button 
+                            style="background-color:pink" 
+                            type="submit" 
+                            onClick=
+                            "return confirm('이대로 작성하시겠습니까? \n전화번호를 남기셨으면 차후 전화번호인증을 통해 게시글을 열람할 수 있습니다.')">
+                            <div class="btnSEt">작성</div>
+                            </button>
+                        </td>
+                        </tr>
+                    
+                        </tbody>
+                    </table>
                 </form> 
-                <a href="qna_board.php" class="btnLIst btn"><div style="border:2px solid grey;">목록</div></a>          
-            </div>
-        </article>
 </body>
 </html>
