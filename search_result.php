@@ -2,6 +2,9 @@
 
 <?php
 session_start();
+if(!isset($_SESSION['id'])){
+  header('Location: ./test.php');
+}
 
 $con = mysqli_connect('localhost','root','1234','test');
 //get으로 카테고리와 검색값을 받음
