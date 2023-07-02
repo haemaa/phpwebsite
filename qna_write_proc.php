@@ -3,21 +3,27 @@
 session_start();
 
 //작성된 값을 받아서 변수로 저장함
-$name = $_SESSION['id'];
 if(isset($_SESSION['id'])){
     $name = $_SESSION['id'];
 } else {
     $name = "익명";
 }
 
-$bPassword = $_POST['bPassword'];
+
+$bPhone = $_POST['bPhone'];
 $bTitle = $_POST['bTitle'];
+// $bNick = $_POST['bNick'];
 $date = date('Y-m-d');
 $bContent = $_POST['bContent'];
 
+if(isset($_POST['lockpost'])){
+    $lock_post = 1 ;
+} else {
+    $lock_post = 0 ;
+}
+
 //파일 관련 변수
-if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['board_file'])){
-    
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $_FILES['board_file']['name'] !=""){
 // $filesize=$_FILES['board_file']['size'];
 // $file_error=$_FILES['board_file']['error'];
 $tmpfile = $_FILES['board_file']['tmp_name'];
@@ -36,16 +42,16 @@ $file_mime_type = mime_content_type($tmpfile);
     } else {
         $_SESSION['write_error'] = '파일 업로드 Fail ㅜㅜ';
     } 
+} else {
 };
     
-
 //데이터베이스에 저장할 쿼리 엶
 $con = mysqli_connect('localhost','root','1234','test');
 
 if(!empty($origin_filename)){
-$query = "INSERT INTO qna_board (title, content, date, name,password,file) VALUES ('$bTitle','$bContent','$date','$name','$bPassword','$new_filename')";
+$query = "INSERT INTO qna_board (title, content, date, name,phone,file,lock_post) VALUES ('$bTitle','$bContent','$date','$name','$bPhone','$new_filename','$lock_post')";
 } else {
-    $query = "INSERT INTO qna_board (title, content, date, name,password,file) VALUES ('$bTitle','$bContent','$date','$name','$bPassword',NULL)";
+    $query = "INSERT INTO qna_board (title, content, date, name,phone,file,lock_post) VALUES ('$bTitle','$bContent','$date','$name','$bPhone',NULL,'$lock_post')";
 }
 if ($con->query($query)){
     echo "<h1>글쓰기 완료</h1>";
