@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <?php
+session_start();
+
 if(isset($_GET['ord_ca'])){
   $ord_ca = $_GET['ord_ca'];
 } else {
@@ -140,6 +142,7 @@ require('./nav.html');
           while($board = $result2->fetch_array()){
             $title = $board['title']; //게시글 제목
             $number = $board['number']; //게시글 번호
+            $lockpost = $board['lock_post'];
             if(isset($board['name'])){
             $name = $board['name']; //작성자
             } else {
@@ -157,7 +160,14 @@ require('./nav.html');
         <tbody>
             <tr>
                 <td width="70"><?php echo $number; ?></td>
-                <td width="300"><a href="./qna_read.php?number=<?php echo $board['number'];?>"><?php echo $title;?></td>
+                <td width="300">
+                  <?php 
+                  $locking = "<img src='./lockpost.png' alt='lock' title='lock' width='20' height='20'";
+                  if($lockpost == '0'){ ?>
+                  <a href="./qna_read.php?number=<?php echo $board['number'];?>"><?php echo $title;?></td>
+                  <?php } else { ?>
+                  <a href="./ck_read.php?number=<?php echo $board['number'];?>"><?php echo $title,$locking;?></td>
+                  <?php } ?>
                 <td width="130"><?php echo $name; ?></td>
                 <td width="120"><?php echo $date; ?></td>
             </tr>    
@@ -218,5 +228,11 @@ require('./nav.html');
   </form>  
   </div>
     </div>
+    <?php 
+    if(isset($_SESSION['msg'])){
+    echo $_SESSION['msg'];
+    unset($_SESSION['msg']);
+    }
+    ?>
 </body>
 </html>
