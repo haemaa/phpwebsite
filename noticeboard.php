@@ -2,6 +2,9 @@
 
 <?php
 session_start();
+if(!isset($_SESSION['id'])){
+  header('Location: ./test.php');
+}
 
 if(isset($_GET['ord_ca'])){
   $ord_ca = $_GET['ord_ca'];
