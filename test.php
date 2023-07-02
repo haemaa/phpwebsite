@@ -16,7 +16,7 @@
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>   
 <span class="d-block p-2 text-bg-dark"><h1>White Hacker haemaa</h1></span>
-<span class="d-block p-2 text-bg-secondary">made by bokyu</span>
+<span class="d-block p-2 text-bg-secondary">made by bokyu<a class="nav-link" href="./qna_board.php" style="float:right;">문의 게시판</a></span>
 <span class="d-block p-2 text-bg-dark">web hacking test web</span>
        <br><p>아이디 비밀번호 입력하세요</p><br>
     <form action='login_proc.php' method='POST'>
