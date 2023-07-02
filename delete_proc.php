@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['id'])){
+  header('Location: ./test.php');
+}
 
 $con = mysqli_connect('localhost','root','1234','test');
 
