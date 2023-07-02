@@ -25,7 +25,7 @@
         }
         function address(){
             address_url = "address.php";
-            window.open(address_url,"addr",'width=300,height=300, scrollbars=no, resizable=no');
+            window.open(address_url,"addr",'width=350,height=300, scrollbars=no, resizable=no');
         }
 
     </script>
