@@ -1,18 +1,18 @@
 <?php
 //세션 시작
 session_start();
+if(!isset($_SESSION['id'])){
+  header('Location: ./test.php');
+}
 
 //작성된 값을 받아서 변수로 저장함
 $name = $_SESSION['id'];
-$bPassword = $_POST['bPassword'];
 $bTitle = $_POST['bTitle'];
 $date = date('Y-m-d');
 $bContent = $_POST['bContent'];
 
-echo '1';
 //파일 관련 변수
-if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES['board_file'])){
-    echo '3';
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $_FILES['board_file']['name'] !=""){
 // $filesize=$_FILES['board_file']['size'];
 // $file_error=$_FILES['board_file']['error'];
 $tmpfile = $_FILES['board_file']['tmp_name'];
@@ -36,14 +36,13 @@ $new_filename = $timestamp.'_'.$filename;
     };
     
 
- echo '2';
 //데이터베이스에 저장할 쿼리 엶
 $con = mysqli_connect('localhost','root','1234','test');
 
 if(!empty($origin_filename)){
-$query = "INSERT INTO board (title, content, date, name,password,file,thumbup) VALUES ('$bTitle','$bContent','$date','$name','$bPassword','$new_filename',0)";
+$query = "INSERT INTO board (title, content, date, name,file,thumbup) VALUES ('$bTitle','$bContent','$date','$name','$new_filename',0)";
 } else {
-    $query = "INSERT INTO board (title, content, date, name,password,file,thumbup) VALUES ('$bTitle','$bContent','$date','$name','$bPassword',NULL,0)";
+    $query = "INSERT INTO board (title, content, date, name,file,thumbup) VALUES ('$bTitle','$bContent','$date','$name',NULL,0)";
 }
 if ($con->query($query)){
     echo "<h1>글쓰기 완료</h1>";
