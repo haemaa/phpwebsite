@@ -152,7 +152,12 @@ require('./nav.html');
           while($s_board = $result3->fetch_array()){
             $title = $s_board['title'];
             $number = $s_board['number'];
-            $name = $s_board['name'];
+            $lockpost = $s_board['lock_post'];
+            if(isset($s_board['name'])){
+            $name = $s_board['name']; //작성자
+            } else {
+             $name = "익명"; 
+            }
             $date = $s_board['date'];
             if(strlen($title)>30){
                 $title = str_replace($s_board['title'],mb_substr($s_board['title'],0,30,"utf-8")."...",$s_board['title']);
@@ -163,7 +168,14 @@ require('./nav.html');
         <tbody>
             <tr>
                 <td width="70"><?php echo $number; ?></td>
-                <td width="300"><a href="./qna_read.php?number=<?php echo $s_board['number'];?>"><?php echo $title;?></td>
+                <td width="300">
+                <?php 
+                  $locking = "<img src='./lockpost.png' alt='lock' title='lock' width='20' height='20'";
+                if($lockpost == '0'){ ?>
+                  <a href="./qna_read.php?number=<?php echo $s_board['number'];?>"><?php echo $title;?></td>
+                  <?php } else { ?>
+                  <a href="./ck_read.php?number=<?php echo $s_board['number'];?>"><?php echo $title,$locking;?></td>
+                  <?php } ?>
                 <td width="130"><?php echo $name; ?></td>
                 <td width="120"><?php echo $date; ?></td>
             </tr>    
