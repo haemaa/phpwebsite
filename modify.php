@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['id'])){
+  header('Location: ./test.php');
+}
 
 //클릭한 게시글의 number를 가져옴
 $bno = $_GET['number'];
@@ -27,33 +30,44 @@ $board = $result->fetch_array();
     <?php
     require('nav.html');
     ?>
+<style>
+    #boardwrite{
+        margin:0 auto;
+    }
+</style>
+
         <h1>게시판 글수정</h1>
         <hr>
-        <div id="boardwrite">
-        <h6>자유게시판 글수정</h6>
         <br>
-            <form action="./modify_proc.php?number=<?php echo $bno; ?>" method="POST">
-                <table>
+            <form action="./modify_proc.php?number=<?php echo $bno; ?>" method="POST" enctype="multipart/form-data">
+            <table id="boardwrite">
                     <thead>
-                    <tr>
-                            <th>비밀번호</th>
-                            <td class="password"><input type="text" name="bPassword" id="bPassword"></td>
-                        </tr>
                         <tr>
                             <th>제목</th>
-                            <td class="title"><textarea type="text" name="bTitle" id="bTitle" maxlength="100"><?php echo $board['title']; ?></textarea>
+                            <td class="title"><textarea style="width:700px;" type="text" name="bTitle" id="bTitle" maxlength="100"><?php echo $board['title']; ?></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th>내용</th>
-                            <td class="content"><textarea name="bContent" id="bContent" maxlength="100"><?php echo $board['content']; ?></textarea></td>
+                            <td class="content"><textarea style="width:700px;height:400px;" name="bContent" id="bContent" maxlength="100"><?php echo $board['content']; ?></textarea></td>
                         </tr>
+                        <!-- <tr>
+                            <th>비밀번호</th>
+                            <td class="password"><input style="width:700px;" type="text" name="bPassword" id="bPassword"></td>
+                        </tr> -->
                         </thead>
-            </table>
-            <br>
-            <div class="btnSEt">
-                        <button type="submit" class="btnSubmit btn">수정 완료</button>
-                        <a href="./noticeboard.php" class="btnLIst btn">목록</a></div>
-                    </form>   
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <td>
+                        <input type="file" name="board_file" />
+                        <a href="./noticeboard.php" class="btnLIst btn"><div style="margin-left:250px;border:2px solid grey;">목록</div></a>
+                        <button style="background-color:pink" type="submit" class="btnSubmit btn"><div class="btnSEt">수정 완료</div></button>
+                        </td>
+                        </tr>
+                        </tbody>
+                </table>
+                <br>     
+            </form>   
 </body>
 </html>
