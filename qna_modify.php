@@ -27,33 +27,58 @@ $board = $result->fetch_array();
     <?php
     require('nav.html');
     ?>
+    <style>
+    #boardwrite{
+    margin:0 auto;
+    }
+
+    </style>
+
         <h1>문의 게시판 글수정</h1>
         <hr>
         <div id="boardwrite">
         <h6>문의게시판 글수정</h6>
         <br>
-            <form action="./qna_modify_proc.php?number=<?php echo $bno; ?>" method="POST">
-                <table>
+            <form action="./qna_modify_proc.php?number=<?php echo $bno; ?>" method="POST" enctype="multipart/form-data">
+                <table id="boardwrite">
                     <thead>
-                    <tr>
-                            <th>비밀번호</th>
-                            <td class="password"><input type="text" name="bPassword" id="bPassword"></td>
-                        </tr>
                         <tr>
                             <th>제목</th>
-                            <td class="title"><textarea type="text" name="bTitle" id="bTitle" maxlength="100"><?php echo $board['title']; ?></textarea>
-                            </td>
+                            <td class="title"><textarea style="width:700px;" type="text" name="bTitle" id="bTitle"><?php echo $board['title']; ?></textarea></td>
                         </tr>
                         <tr>
                             <th>내용</th>
-                            <td class="content"><textarea name="bContent" id="bContent" maxlength="100"><?php echo $board['content']; ?></textarea></td>
+                            <td class="content"><textarea style="width:700px;height:400px;" name="bContent" id="bContent"><?php echo $board['content']; ?></textarea></td>
                         </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td class="phone"><textarea placeholder="비밀글로 하시려면 작성해주세요" style="width:700px;" type="text" name="bPhone" id="bPhone"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <!-- 게시글 잠금 기능 -->
+                        <input type="checkbox" value="1" name="lockpost" id="lockpost"/> 비밀글 설정
+                        </td>
+                        </tr>    
                         </thead>
-            </table>
-            <br>
-            <div class="btnSEt">
-                        <button type="submit" class="btnSubmit btn">수정 완료</button>
-                        <a href="./qna_board.php" class="btnLIst btn">목록</a></div>
+                        <tbody>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input type="file" name="board_file" />
+                            <a href="qna_board.php" class="btnLIst btn"><div style="margin-left:300px;border:2px solid grey;">목록</div></a> 
+                            <button 
+                            style="background-color:pink" 
+                            type="submit" 
+                            onClick=
+                            "return confirm('이대로 작성하시겠습니까? \n전화번호를 남기셨으면 차후 전화번호인증을 통해 게시글을 열람할 수 있습니다.')">
+                            <div class="btnSEt">작성</div>
+                            </button>
+                        </td>
+                        </tr>
+                        </tbody>
+                    </table>
                     </form>   
 </body>
 </html>
