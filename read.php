@@ -1,6 +1,9 @@
 <?php
 //세션 시작
 session_start();
+if(!isset($_SESSION['id'])){
+  header('Location: ./test.php');
+}
 $login_id = $_SESSION['id'];
 
 //클릭할 때 number GET으로 가져옴
