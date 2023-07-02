@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['id'])){
+  header('Location: ./test.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,39 +15,44 @@ session_start();
     <?php
 require('./nav.html');
 ?>
+<style>
+#boardwrite{
+    margin:0 auto;
+}
+</style>
+
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <article class="article">
         <BR>
         <h1>게시판 글쓰기</h1>
         <HR>
         <div id="boardwrite">
             <form action="./write_update.php" method="POST" enctype="multipart/form-data">
                 <table id="boardwrite">
-                    <caption class="readHIde">자유게시판 글쓰기</caption>
                     <tbody>
                         <tr>
                             <th scope="row"><label for="bTitle">제목</label></th>
-                            <td class="title"><input type="text" name="bTitle" id="bTitle"></td>
+                            <td class="title"><input style="width:700px;" type="text" name="bTitle" id="bTitle"></td>
                         </tr>
                         <tr>
                             <th scope="row"><label for="bContent">내용</label></th>
-                            <td class="content"><textarea name="bContent" id="bContent"></textarea></td>
+                            <td class="content"><textarea style="width:700px;height:400px;"name="bContent" id="bContent"></textarea></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th scope="row"><label for="bPassword">비밀번호</label></th>
-                            <td class="password"><input type="text" name="bPassword" id="bPassword"></td>
+                            <td class="password"><input style="width:700px;" type="text" name="bPassword" id="bPassword"></td>
+                        </tr> -->
+                        <tr>
+                            <th></th>
+                            <td>
+                            <input type="file" name="board_file" />
+                            <a href="noticeboard.php" class="btnLIst btn"><div style="margin-left:300px;border:2px solid grey;">목록</div></a> 
+                            <button style="background-color:pink" type="submit"><div class="btnSEt">작성</div></button>
+                            </td>
                         </tr>
                     </tbody>
-                    <div class="btnSEt">
-                        
-                        <button style="background-color:pink" type="submit"><div>작성</div></button>
-                    </div>
-                    <input type="file" name="board_file" />
-                </form> 
-                <a href="noticeboard.php" class="btnLIst btn"><div style="border:2px solid grey;">목록</div></a>          
+                </form>          
             </div>
-        </article>
 </body>
 </html>
